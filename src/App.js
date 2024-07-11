@@ -1,7 +1,6 @@
 import React,{useState} from "react";
 import {InlineMath} from 'react-katex';
 import 'katex/dist/katex.min.css';
-import styles from "./app.css";
 const plobs = [""]
 
 function App() {
