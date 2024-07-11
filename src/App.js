@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import { InlineMath, BlockMath } from 'react-katex';
+import { InlineMath} from 'react-katex';
 import 'katex/dist/katex.min.css';
 const plobs = [""]
 
