@@ -1,0 +1,22 @@
+td{
+    font-size:35px;
+}
+th{
+    font-size:30px;
+}
+h1{
+    text-align:center;
+}
+.scr{
+    @media print{
+        display:none;
+    }
+}
+input{
+    height:30Px;
+    font-size:20px;
+}
+button{
+    height:50px;
+    width:100px;
+}

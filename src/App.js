@@ -1,6 +1,7 @@
 import React,{useState} from "react";
-import { InlineMath} from 'react-katex';
+import {InlineMath} from 'react-katex';
 import 'katex/dist/katex.min.css';
+import styles from "./app.css";
 const plobs = [""]
 
 function App() {
@@ -54,9 +55,10 @@ function App() {
     <div className="App">
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax
 /2.7.7/MathJax.js?config=TeX-AMS_CHTML"></script>
-      <input type = "text"value = {text}
+      <input className = "scr" type = "text"size = "50"value = {text}
       onChange={(event) => setText(event.target.value)}/>
-      <button onClick={onClickAddText}>追加</button>
+      <button className = "scr" onClick={onClickAddText}>追加</button>
+      <h1>基礎テストプリント</h1>
       <table>
 			<tr><th width = "500">氏名:</th><th width = "200">得点</th><th>/{point}</th></tr>
       </table>
