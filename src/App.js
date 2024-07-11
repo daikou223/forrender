@@ -55,6 +55,7 @@ function App() {
     <div className="App">
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax
 /2.7.7/MathJax.js?config=TeX-AMS_CHTML"></script>
+      <link type = "stylesheet" href = "./app.css"></link>
       <input className = "scr" type = "text"size = "50"value = {text}
       onChange={(event) => setText(event.target.value)}/>
       <button className = "scr" onClick={onClickAddText}>追加</button>
