@@ -2,19 +2,36 @@ import React,{useState} from "react";
 import styles from "./app.css";
 import {InlineMath} from 'react-katex';
 import 'katex/dist/katex.min.css';
-const plobs = [""]
+let plobs = []
 
 function App() {
+  const ondelete = (id) =>{
+    for(let i = id;i<plobs.length-1;i++){
+      plobs[i] = plobs[i+1];
+    }
+    plobs.pop();
+    setPlob(plobs.map((ploby,index)=>
+      <tr key = {index}>
+        <td>
+        ({index+1})
+        </td>
+        <td><InlineMath>{ploby}</InlineMath></td><td><button className = "del" onClick={() => (ondelete(index))}>削除</button></td>
+        </tr>));
+  };
   const [text, setText] = useState("");
   const[plob,setPlob] = useState("");
-  const[point,setpoint] = useState(0);
   const onClickAddText = () => {
     var temptext = "";
     var templst = [];
     var tempind = "";
-    var p = 0
+    var p = 0;
+    let d = 1;
     for(var j = 0;j<text.length;j++){
       console.log(temptext);
+      if(text[j] !== "*" && d !== 1){
+        temptext += Math.floor(Math.random()*(d-1))+1;
+        d = 1;
+      }
       if(text[j] === "["){
         p = 1;
       }
@@ -32,6 +49,9 @@ function App() {
         tempind = "";
         p += 1;
       }
+      else if(p === 0 && text[j] === "*"){
+        d = d*10;
+      }
       else if(p >0){
         tempind += text[j];
       }
@@ -39,15 +59,17 @@ function App() {
         temptext += text[j];
       }
     }
-    plobs[point] = temptext;
-    console.log(plobs);
-    setpoint(point + 1);
+    if(text[j] !== "*" && d !== 1){
+      temptext += Math.floor(Math.random()*(d-1))+1;
+      d = 1;
+    }
+    plobs[plobs.length] = temptext;
     setPlob(plobs.map((ploby,index)=>
       <tr key = {index}>
         <td>
         ({index+1})
         </td>
-        <td><InlineMath>{ploby}</InlineMath></td>
+        <td><InlineMath>{ploby}</InlineMath></td><td><button className = "del" onClick={() => (ondelete(index))}>削除</button></td>
         </tr>));
   };
 
@@ -61,7 +83,7 @@ function App() {
       <button className = "scr" onClick={onClickAddText}>追加</button>
       <h1>基礎テストプリント</h1>
       <table>
-			<tr><th width = "500">氏名:</th><th width = "200">得点</th><th>/{point}</th></tr>
+			<tr><th width = "500">氏名:</th><th width = "200">得点</th><th>/{plobs.length}</th></tr>
       </table>
       <table>
       {plob}
