@@ -24,25 +24,35 @@ function App() {
     var temptext = "";
     var templst = [];
     var tempind = "";
+    let memo = {};
+    let beforelst = [];
+    let select;
     var p = 0;
     let d = 1;
+    let at = 0
     for(var j = 0;j<text.length;j++){
       console.log(temptext);
       if(text[j] !== "*" && d !== 1){
         temptext += Math.floor(Math.random()*(d-1))+1;
         d = 1;
       }
-      if(text[j] === "["){
+      if(text[j] === "@" && p === 0 && beforelst !== []){
+        at = 1;
+      }
+      else if(text[j] === "["){
         p = 1;
       }
       else if(text[j] === "]" && p > 0){
         templst[templst.length] = tempind;
         p += 1;
-        temptext += templst[Math.floor(Math.random()*(p-1))];
+        select = Math.floor(Math.random()*(p-1));
+        temptext += templst[select];
         console.log(Math.floor(Math.random()*p));
+        beforelst = [templst,select];
+        console.log(beforelst);
         templst = [];
         tempind = "";
-        p = 0
+        p = 0;
       }
       else if(text[j] === "," && p >0){
         templst[p-1] = tempind;
@@ -51,6 +61,17 @@ function App() {
       }
       else if(p === 0 && text[j] === "*"){
         d = d*10;
+      }
+      else if(at === 1 && text[j] !== "@"){
+        console.log(memo);
+        if(text[j] in memo){
+          temptext += memo[text[j]][0][memo[text[j]][1]];
+        }
+        else{
+          memo[text[j]] = beforelst;
+        }
+        at = 0;
+        beforelst =[];
       }
       else if(p >0){
         tempind += text[j];
